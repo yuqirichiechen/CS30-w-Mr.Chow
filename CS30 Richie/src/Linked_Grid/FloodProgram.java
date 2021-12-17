@@ -5,22 +5,50 @@ import java.util.Scanner;
 public class FloodProgram {
 
 	
-	public static void populate(Node temp, int x)
-	{
-		if(temp.getLeft()!=null && temp.getLeft().getData() == temp.getData())
-			populateOnce1(temp.getLeft(), x);
-		
-		if(temp.getUp()!=null && temp.getUp().getData() == temp.getData())
-			populateOnce2(temp.getUp(), x);
-		
-		if(temp.getRight()!=null && temp.getRight().getData() == temp.getData())
-			populate(temp.getRight(), x);
-		
-		if(temp.getDown()!=null && temp.getDown().getData() == temp.getData())
-			populate(temp.getDown(), x);
-		
-		temp.setData(x);
-		
+	public static void populate(Node root, int data) {
+	    root.setData(data);
+
+	    // Fill down
+	    if (root.getDown() != null) {
+	        if (!root.getDown().isFull() && root.getDown().getData() == data) {
+	            root.getDown().setFull(true);
+	            populate(root.getDown(), data);
+
+	        } else if (root.getDown().isFull() && root.getDown().getData() != data) {
+	        	populate(root.getDown(), data);
+	        }
+	    }
+	    // Fill right
+	    if (root.getRight() != null) {
+	        if (!root.getRight().isFull() && root.getRight().getData() == data) {
+	            root.getRight().setFull(true);
+	            populate(root.getRight(), data);
+
+	        } else if (root.getRight().isFull() && root.getRight().getData() != data) {
+	        	populate(root.getRight(), data);
+	        }
+	    }
+	    // Fill left
+	    if (root.getLeft() != null) {
+	        if (!root.getLeft().isFull() && root.getLeft().getData() == data) {
+	            root.getLeft().setFull(true);
+	            populate(root.getLeft(), data);
+
+	        } else if (root.getLeft().isFull() && root.getLeft().getData() != data) {
+	        	populate(root.getLeft(), data);
+	        }
+	    }
+	    // Fill up
+	    if (root.getUp() != null) {
+	        if (!root.getUp().isFull() && root.getUp().getData() == data) {
+	            root.getUp().setFull(true);
+	            populate(root.getUp(), data);
+
+	        } else if (root.getUp().isFull() && root.getUp().getData() != data) {
+	        	populate(root.getUp(), data);
+	        }
+	    }
+
 	}
 	
 	public static void populateOnce1(Node temp, int x)
@@ -46,13 +74,13 @@ public class FloodProgram {
 		String again = "";
 		do
 		{
-			LinkedGrid board = new LinkedGrid(20,20);
-			int chance = 25;
+			LinkedGrid board = new LinkedGrid(10,10);
+			int chance = 300;
 			
 			do
 			{
 				board.display();
-				System.out.println("You have " + chance + "/25 chances left");
+				System.out.println("You have " + chance + "/30 chances left");
 				System.out.println("Choose a number");
 				int mark = input.nextInt();
 				populate(board.first(), mark);

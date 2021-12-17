@@ -4,6 +4,7 @@ public class Node {
 
 	private Node up, down, left, right;
 	private int data;
+	private boolean filled;
 
 	public Node(int i) {
 		data = i;
@@ -47,6 +48,14 @@ public class Node {
 
 	public void setData(int data) {
 		this.data = data;
+	}
+
+	public boolean isFull() {
+		return filled;
+	}
+
+	public void setFull(boolean filled) {
+		this.filled = filled;
 	}
 
 }
